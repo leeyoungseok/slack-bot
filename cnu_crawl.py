@@ -1,7 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 import meal_form
+import configparser
+import json
 
+def config_read():
+    with open('config.json') as f:
+        config = json.load(f)
+    return config
+    
 def web_crawl(place):
     try:
         req = requests.get('http://cnuis.cnu.ac.kr/jsp/etc/toDayMenu.jsp')
@@ -13,7 +20,6 @@ def web_crawl(place):
 
     selected_elements = soup.select('table.tab_color > tr > td[height="20"]')
 
-    #td_count가 34가 아니라면, 휴일
     data=[]
     td_count=0
     for element in selected_elements:
@@ -22,7 +28,8 @@ def web_crawl(place):
         td_count+=1
 
     print("td_count: ", td_count)
-    #평일엔 td_count==34
+    
+    #평일엔 td_count==29
     if td_count==29:
         return meal_form.get_form(place, data)
     else: return '오늘은 식당을 운영하지 않습니다'

@@ -6,16 +6,21 @@ import datetime
 def get_form(place, data):
     today = str(datetime.date.today().month) + '월' + str(datetime.date.today().day) + '일'
     #print("data: ", data[12], data[25])
-    a = '제2학생회관('+today+')\n' \
+    menu_text_2 = '제2학생회관('+today+')\n' \
         '>학생식단(백반) ' + data[13].split()[0] + '원\n' \
         + make_menu(data[12]) + \
         '\n>교직원식당 ' + data[19].split()[0] + '원\n' \
         + make_menu(data[18]) + \
         '\n>학생식당(일품)\n' \
         + make_menu_ilpum(data[25]) + '\n'
+    menu_text_3 = '제3학생회관('+today+')\n' \
+        '교직원식당 ' + data[19].split()[0] + '원\n' \
+        + make_menu(data[18]) + '\n'
 
     if place == '취업지원회관':
-        return a
+        return menu_text_2
+    elif place == '제3학생회관':
+        return menu_text_3
     else:
         return 'meal error'
 
