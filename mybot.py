@@ -1,6 +1,7 @@
 import requests
 from slack_sdk import WebClient
 from datetime import datetime
+import cnu_crawl
 
 
 # slack 챗 봇
@@ -15,8 +16,7 @@ def post_message(token, channel, text):
 myToken = "xoxb-2841907287282-2868284211216-fEZY3L2l2jt5rRebcfNXjogK"
 
 
-# message로 받은 인자를 파이썬 쉘과 슬랙 #채널이름 에 동시에 출력한다
-def dbgout(message):
+def slack_post(message):
     print(datetime.now().strftime('[%m/%d %H:%M:%S]'), message)
     strbuf = datetime.now().strftime('[%m/%d %H:%M:%S] ') + message
     post_message(myToken, "#일반", strbuf)
@@ -31,5 +31,6 @@ def bot_test(message):
         text="Hello silently from your app! :tada:")
 
 if __name__ == '__main__':
-    dbgout("Hello World by bot python testing...")
+    menu = cnu_crawl.web_crawl("취업지원회관")
+    slack_post(menu)
     #bot_test("hello world")

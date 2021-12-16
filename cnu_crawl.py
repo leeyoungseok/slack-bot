@@ -2,11 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import meal_form
 
-def get(place):
+def web_crawl(place):
     try:
         req = requests.get('http://cnuis.cnu.ac.kr/jsp/etc/toDayMenu.jsp')
     except:
-        return '학교홈페이지 사정으로 학식내용을 불러올 수 없습니다'
+        return '홈페이지를 불러올 수 없습니다'
 
     html = req.text
     soup = BeautifulSoup(html, 'lxml')
@@ -27,6 +27,6 @@ def get(place):
         return meal_form.get_form(place, data)
     else: return '오늘은 식당을 운영하지 않습니다'
 
-if __name__ == '__main__':
-    menu = get("취업지원회관")
-    print(menu)
+#if __name__ == '__main__':
+#    menu = get("취업지원회관")
+#    print(menu)
